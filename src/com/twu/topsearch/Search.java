@@ -38,4 +38,16 @@ public class Search {
     public void setTrending(int num) {
         this.trending += num;
     }
+
+    @Override
+    public boolean equals(Object o) {
+       if (!(o instanceof Search)) {
+           return false;
+       }
+       Search anotherSearch = (Search) o;
+       if (anotherSearch == this) {
+           return true;
+       }
+       return this.name.equals(anotherSearch.getName());
+    }
 }

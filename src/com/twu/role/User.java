@@ -55,8 +55,20 @@ public class User extends Role{
      * user function: buy search item
      * @param name : search item intend to buy
      */
-    public boolean buySearchItem(String name, int money) {
-        System.out.println("购买失败");
-        return false;
+    public void buySearchItem(String name, int ranking, int money) {
+        TopSearch searchList = TopSearch.getInstance();
+        if (searchList.isEmpty()) {
+            System.out.println("当前热搜榜为空，无法购买！");
+            return;
+        }
+        if(name == null || name.length() == 0 || !searchList.contains(name)) {
+            System.out.println("热搜榜中没有这条消息！购买失败！");
+            return;
+        }
+        if (searchList.isSold(ranking) && searchList.getRankingPrice(ranking) >= money) {
+            System.out.println("金额不足！");
+            return;
+        }
+        searchList.buyRanking(name, ranking, money);
     }
 }

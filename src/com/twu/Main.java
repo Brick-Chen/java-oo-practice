@@ -37,9 +37,11 @@ public class Main {
             else if (input.equals("3")) {
                 System.out.println("请输入您要购买的热搜：");
                 String voteName = sc.nextLine();
+                System.out.println("请输入您想购买的名次：");
+                String ranking = sc.nextLine();
                 System.out.println("请输入金额: ");
                 String money = sc.nextLine();
-                user.buySearchItem(voteName, Integer.parseInt(money));
+                user.buySearchItem(voteName, Integer.parseInt(ranking), Integer.parseInt(money));
             }
             else if (input.equals("4")) {
                 System.out.println("请输入您要添加的热搜：");
