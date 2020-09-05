@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void userInteraction(User user) {
-        Scanner sc = new Scanner(System.in);
+    public static void userInteraction(User user, Scanner sc) {
         String userName = user.getName();
 
         while(true) {
@@ -49,11 +48,9 @@ public class Main {
                 System.out.println("输入无效，请重新输入");
             }
         }
-        sc.close();
     }
 
-    public static void adminInteraction(Administrator admin) {
-        Scanner sc = new Scanner(System.in);
+    public static void adminInteraction(Administrator admin, Scanner sc) {
         String adminName = admin.getName();
 
         while (true) {
@@ -86,7 +83,6 @@ public class Main {
                 System.out.println("输入无效，请重新输入");
             }
         }
-        sc.close();
     }
 
     public static void main(String[] args) {
@@ -96,7 +92,7 @@ public class Main {
             System.out.println("1: 用户");
             System.out.println("2: 管理员");
             System.out.println("若要退出系统，请输入字母\"q\"");
-            System.out.println(" ");
+//            System.out.println(" ");
             String input = scanner.nextLine();
 
             if (input.equals("1")) {
@@ -108,7 +104,7 @@ public class Main {
                     continue;
                 }
                 System.out.println(" ");
-                userInteraction(new User(name));
+                userInteraction(new User(name), scanner);
             }
             else if (input.equals("2")) {
                 System.out.println("请输入管理员名称：");
@@ -119,7 +115,7 @@ public class Main {
                     continue;
                 }
                 System.out.println(" ");
-                adminInteraction(new Administrator(name));
+                adminInteraction(new Administrator(name), scanner);
             }
             else if (input.equalsIgnoreCase("q")) {
                 break;
