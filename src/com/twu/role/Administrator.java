@@ -13,11 +13,12 @@ public class Administrator extends Role{
         super(name);
     }
 
-    /***
+    /**
      * administrator function: add super search item
      * when a user votes super search item, the num
      * of trending will be doubled.
      * @param name: super search item intend to add
+     * to search list
      */
     public void addSuperSearchItem(String name) {
         if(validName(name)) {

@@ -7,6 +7,11 @@ import java.util.Scanner;
 
 public class Main {
 
+    /**
+     * interaction with user
+     * @param user  User instance
+     * @param sc Scanner instance
+     */
     public static void userInteraction(User user, Scanner sc) {
         String userName = user.getName();
 
@@ -23,7 +28,7 @@ public class Main {
                 user.viewTopSearch();
             }
             else if (input.equals("2")) {
-                System.out.printf("请输入您要投票的热搜：(您当前拥有的票数为%d票)", user.getTicket());
+                System.out.printf("请输入您要投票的热搜：(您当前拥有的票数为%d票)\n", user.getTicket());
                 String voteName = sc.nextLine();
                 System.out.println("请输入票数: ");
                 String number = sc.nextLine();
@@ -50,6 +55,11 @@ public class Main {
         }
     }
 
+    /**
+     *
+     * @param admin Administrator instance
+     * @param sc Scanner instance
+     */
     public static void adminInteraction(Administrator admin, Scanner sc) {
         String adminName = admin.getName();
 

@@ -3,38 +3,28 @@ package com.twu.role;
 import com.twu.topsearch.Search;
 import com.twu.topsearch.TopSearch;
 
+/**
+ * Abstract class Role
+ */
 public abstract class Role {
-    private static final int DEFAULT_TICKET_NUM = 10;
     private final String name;
-    private int ticket;
 
     public Role(String name) {
         this.name = name;
-        this.ticket = DEFAULT_TICKET_NUM;
     }
 
+    /**
+     *
+     * @return name of the role
+     */
     public String getName() {
         return this.name;
     }
 
-    public int getTicket() {
-        return this.ticket;
-    }
-
-    public void vote(String name, int num) {
-        TopSearch searchList = TopSearch.getInstance();
-        if(name == null || !searchList.contains(name)) {
-            System.out.println("该项热搜不存在！");
-            return;
-        }
-        if (num > this.ticket) {
-            System.out.println("票数不足，投票失败！");
-            return;
-        }
-        searchList.addTrending(name, num);
-        this.ticket -= num;
-    }
-
+    /**
+     * add a search item to search list
+     * @param name name of the search item
+     */
     public void addSearchItem(String name) {
         if(validName(name)) {
             TopSearch searchList = TopSearch.getInstance();
@@ -45,6 +35,11 @@ public abstract class Role {
 
     }
 
+    /**
+     *
+     * @param name name of a search item
+     * @return validation of a search item
+     */
     public boolean validName(String name) {
         TopSearch searchList = TopSearch.getInstance();
         if (name == null || name.length() == 0) {
@@ -59,6 +54,9 @@ public abstract class Role {
         return true;
     }
 
+    /**
+     * show current search list
+     */
     public void viewTopSearch() {
         TopSearch searchList = TopSearch.getInstance();
         searchList.showTopSearchList();
