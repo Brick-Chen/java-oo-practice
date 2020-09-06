@@ -220,9 +220,14 @@ public class TopSearch {
 
         List<Search> items = sortSearchList();
         System.out.println("----------------------------------------------");
+        int rank = 0;
         for(int i = 0; i < items.size(); ++i) {
             Search item = items.get(i);
-            System.out.println(i + 1 + "    " + item.getName() + "    " + item.getTrending());
+            if (item != null) {
+                System.out.println(rank + 1 + "    " + item.getName() + "    " + item.getTrending());
+                ++rank;
+            }
+
         }
         System.out.println("----------------------------------------------");
         System.out.println(" ");
