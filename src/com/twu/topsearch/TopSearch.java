@@ -78,6 +78,14 @@ public class TopSearch {
     }
 
     /**
+     *
+     * @return number of search items
+     */
+    public int size() {
+        return searchList.size();
+    }
+
+    /**
      * check whether a ranking is sold
      * @param ranking a ranking number
      * @return true if sold, else false
@@ -96,6 +104,19 @@ public class TopSearch {
     }
 
     /**
+     * get the ranking of a search item
+     * @param name name of search item
+     * @return ranking of search item
+     */
+    public int getSearchRank(String name) {
+        if (searchList.containsKey(name)) {
+            return searchList.get(name).getRank();
+        }
+        System.out.println("该热搜不存在");
+        return -1;
+    }
+
+    /**
      * buy a ranking
      * @param name search item name
      * @param ranking ranking number
@@ -110,11 +131,22 @@ public class TopSearch {
 
         // if the search item to be paid has been paid before
         // soldRanking should remove its record before
+        if (searchList.get(name).isPaid()) {
+            soldRanking.remove(searchList.get(name).getRank());
+            searchList.get(name).setRank(-1);
+        }
 
+        // get rank object; set the new price of rank, set the
+        // search item the rank points to, put this ranking in
+        // the soldRanking list
         Rank rank = soldRanking.getOrDefault(ranking, new Rank(ranking));
         rank.setSearchName(name);
         rank.setPrice(money);
         soldRanking.put(ranking, rank);
+
+        // set new ranking to the search item
+        Search target = searchList.get(name);
+        target.setRank(ranking);
     }
 
     /**
@@ -143,25 +175,35 @@ public class TopSearch {
                    .map(searchList::get).sorted((o1, o2) -> o2.getTrending() - o1.getTrending())
                    .collect(Collectors.toList());
 
-           Search[] res = new Search[searchList.size()];
+           Search[] res;
 
-           // put the paid search item in the right position
-           for(int ranking : soldRanking.keySet()) {
-               String searchName = soldRanking.get(ranking).getSearchName();
-               res[ranking] = searchList.get(searchName);
+           if (unsoldSearchItem.size() == 0) {
+               res = new Search[searchList.size()];
+               int start = 0;
+               for(int ranking : soldRanking.keySet()) {
+                   String searchName = soldRanking.get(ranking).getSearchName();
+                   res[start] = searchList.get(searchName);
+                   ++start;
+               }
            }
+           else {
+               int s = soldRanking.keySet().stream().max((Comparator.comparingInt(o -> o))).get();
+               res = new Search[Math.max(searchList.size(), s)];
+               // put the paid search item in the right position
+               for(int ranking : soldRanking.keySet()) {
+                   String searchName = soldRanking.get(ranking).getSearchName();
+                   res[ranking - 1] = searchList.get(searchName);
+               }
 
-           // put the remaining unpaid search item
-           if (unsoldSearchItem.size() != 0) {
+               // put the remaining unpaid search item
                int index = 0;
                for (int i = 0; i < res.length; ++i) {
-                   if (res[i] == null) {
+                   if (res[i] == null && index < unsoldSearchItem.size()) {
                        res[i] = unsoldSearchItem.get(index);
                        ++index;
                    }
                }
            }
-
            items = Arrays.asList(res);
         }
         return items;

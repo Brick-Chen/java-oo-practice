@@ -49,6 +49,7 @@ public class User extends Role{
         }
         searchList.addTrending(name, num);
         this.ticket -= num;
+        System.out.println("投票成功！");
     }
 
     /**
@@ -65,10 +66,19 @@ public class User extends Role{
             System.out.println("热搜榜中没有这条消息！购买失败！");
             return;
         }
+        if (ranking < 0 || ranking > searchList.size()) {
+            System.out.println("排名无效");
+            return;
+        }
+        if (searchList.getSearchRank(name) == ranking) {
+            System.out.println("该热搜已在该排名上，购买失败！");
+            return;
+        }
         if (searchList.isSold(ranking) && searchList.getRankingPrice(ranking) >= money) {
             System.out.println("金额不足！");
             return;
         }
         searchList.buyRanking(name, ranking, money);
+        System.out.println("购买成功！");
     }
 }

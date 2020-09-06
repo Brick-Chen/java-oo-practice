@@ -31,6 +31,7 @@ public abstract class Role {
             String s = name.toLowerCase();
             Search search = new Search(s);
             searchList.add(search);
+            System.out.println("添加成功！");
         }
 
     }

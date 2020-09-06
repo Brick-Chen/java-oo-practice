@@ -8,10 +8,12 @@ package com.twu.topsearch;
 public class Search {
     private final String name;
     private int trending;
+    private int rank;
 
     public Search(String name) {
         this.name = name;
         this.trending = 0;
+        this.rank = 0;
     }
 
     /**
@@ -37,6 +39,30 @@ public class Search {
      */
     public void setTrending(int num) {
         this.trending += num;
+    }
+
+    /**
+     *
+     * @return whether search item is purchased
+     */
+    public boolean isPaid() {
+        return this.rank != 0;
+    }
+
+    /**
+     * set ranking number
+     * @param rank ranking number
+     */
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    /**
+     *
+     * @return ranking number
+     */
+    public int getRank() {
+        return this.rank;
     }
 
     @Override
