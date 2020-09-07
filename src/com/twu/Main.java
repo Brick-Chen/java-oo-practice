@@ -32,7 +32,14 @@ public class Main {
                 String voteName = sc.nextLine();
                 System.out.println("请输入票数: ");
                 String number = sc.nextLine();
-                user.vote(voteName, Integer.parseInt(number));
+                try {
+                    user.vote(voteName, Integer.parseInt(number));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                } finally {
+                    System.out.println("您输入的数据格式有误！请检查输入的票数是否为整数！");
+                }
+
             }
             else if (input.equals("3")) {
                 System.out.println("请输入您要购买的热搜：");
@@ -41,7 +48,13 @@ public class Main {
                 String ranking = sc.nextLine();
                 System.out.println("请输入金额: ");
                 String money = sc.nextLine();
-                user.buySearchItem(voteName, Integer.parseInt(ranking), Integer.parseInt(money));
+                try {
+                    user.buySearchItem(voteName, Integer.parseInt(ranking), Integer.parseInt(money));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                } finally {
+                    System.out.println("您输入的数据格式有误！请检查您输入的名次和金额是否为整数！");
+                }
             }
             else if (input.equals("4")) {
                 System.out.println("请输入您要添加的热搜：");
@@ -70,7 +83,7 @@ public class Main {
             System.out.println("1: 查看热搜排行榜");
             System.out.println("2: 添加热搜");
             System.out.println("3: 添加超级热搜");
-            System.out.println("5. 若要退出，请输入字母\"q\"");
+            System.out.println("4. 若要退出，请输入字母\"q\"");
 
             String input = sc.nextLine();
 

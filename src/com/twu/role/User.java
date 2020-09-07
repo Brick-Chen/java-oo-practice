@@ -66,7 +66,7 @@ public class User extends Role{
             System.out.println("热搜榜中没有这条消息！购买失败！");
             return;
         }
-        if (ranking < 0 || ranking > searchList.size()) {
+        if (ranking <= 0 || ranking > searchList.size()) {
             System.out.println("排名无效");
             return;
         }
